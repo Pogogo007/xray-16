@@ -595,8 +595,9 @@ bool CActor::CanRun()
 
 bool CActor::CanSprint()
 {
-    bool can_Sprint = CanAccelerate() && !conditions().IsCantSprint() && Game().PlayerCanSprint(this) && CanRun() &&
-        !(mstate_real & mcLStrafe || mstate_real & mcRStrafe) && InventoryAllowSprint();
+    bool can_Sprint = CanAccelerate() && !conditions().IsCantSprint() && Game().PlayerCanSprint(this) && CanRun()
+        && !((mstate_real & mcLStrafe || mstate_real & mcRStrafe) && !(mstate_real & mcFwd))
+        && InventoryAllowSprint();
 
     return can_Sprint && (m_block_sprint_counter <= 0);
 }
